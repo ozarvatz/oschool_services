@@ -1,0 +1,13 @@
+source 'https://rubygems.org'
+
+gem 'sinatra'
+gem 'grape', '~> 0.5.0'
+gem 'grape-swagger'
+gem 'json'
+gem 'bson_ext'
+gem 'authlogic'
+gem 'pry'
+gem 'mongoid',  git: 'https://github.com/mongoid/mongoid.git'
+gem 'mongo'
+gem 'bson_ext'              
+gem 'thin'                  
