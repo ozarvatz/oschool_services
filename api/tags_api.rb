@@ -17,7 +17,6 @@ module SporaServiceApi
 		end
 
 		put ':name/push' do
-			binding.pry
 			tag_name = params.delete(:name)
 			return { status: 501, error: "params hash is empty!!!" } if params.empty?
 			Tags.push(tag_name, params)

@@ -5,7 +5,6 @@ module Configuration
 
   def init
     @env = ENV["RACK_ENV"] || "development"
-    # binding.pry
     Mongoid.load!("config/mongoid.yml", env)
 
     setup_logger(env)

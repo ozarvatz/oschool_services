@@ -9,7 +9,6 @@ class BaseMongoid
   	end
 
     def self.set_attributes(condition, params)
-      binding.pry
       params.each do |key, value|
         if key.to_s.include?('.')
           find_or_create_by(condition).update_attribute(key, value)

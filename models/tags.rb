@@ -12,7 +12,6 @@ class Tags < BaseMongoid
   index({ tag: 1 }, { unique: true, name: "tags_index" })
 
   def self.push(tag_name, params)
-    binding.pry
     params = sanitize_params(params, self.fields.symbolize_keys.keys)
     params.each do |key, value|
       if self.fields[key.to_s] && self.fields[key.to_s].options[:type] == (Array)
@@ -26,7 +25,6 @@ class Tags < BaseMongoid
   end
 
   def self.set(tag_name, params)
-    binding.pry
     params = sanitize_params(params, self.fields.symbolize_keys.keys)
     self.set_attributes({tag: tag_name}, params)    
   end

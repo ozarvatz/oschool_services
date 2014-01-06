@@ -22,7 +22,6 @@ module SporaServiceApi
 			user_id = params.delete(:id)
 			return { status: 501, error: "there are missing values at the params" } unless params[:array_name]
 			pop_option = (params[:pop_option] || 1).to_i
-			binding.pry
 			{ status: 200, ret: Users.pop(user_id, params[:array_name], pop_option) }
 		end
 	end
