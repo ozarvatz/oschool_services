@@ -29,4 +29,22 @@ class Tags < BaseMongoid
     self.set_attributes({tag: tag_name}, params)    
   end
 
+  def self.slice(tag_name, params)
+    params = sanitize_params(params, self.fields.symbolize_keys.keys)
+    params.each do |key, value|
+      if self.fields[key.to_s] && self.fields[key.to_s].options[:type] == (Array)
+        return self.super_slice({tag: tag_name}, key, value[0], value[1] || 1)
+      end
+    end
+  end
+
+  def self.set_element(tag_name, params)
+    params = sanitize_params(params, self.fields.symbolize_keys.keys)
+    params.each do |key, value|
+      if self.fields[key.to_s] && self.fields[key.to_s].options[:type] == (Array)
+        return self.super_set_element({tag: tag_name}, key, value) if value.kind_of?(Array)
+      end
+    end
+  end
+
 end

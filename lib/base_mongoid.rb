@@ -8,6 +8,15 @@ class BaseMongoid
       where(condition).only(filter).first
   	end
 
+    def self.super_set_element(condition, array_name, array_index_value)
+      params = {}
+      array_index_value.each do |arr|
+        params["#{array_name}.#{arr[0]}"] = arr[1]
+      end
+      binding.pry
+      Tags.where(condition).set(params) 
+    end
+
     def self.set_attributes(condition, params)
       params.each do |key, value|
         if key.to_s.include?('.')
@@ -26,7 +35,11 @@ class BaseMongoid
   		where(condition).pop(array_name => pop_option)
   	end
 
+    def self.super_slice(condition, array_name, offset, limit = 1)
+      where(condition).slice(array_name => [offset, limit]).first
+    end
+
     def self.sanitize_params(params, valid_params)
-    params.symbolize_keys.delete_if {|key, value| !(valid_params.include?(key) || key.to_s.include?('.')) }
+      params.symbolize_keys.delete_if {|key, value| !(valid_params.include?(key) || key.to_s.include?('.')) }
   end
 end
