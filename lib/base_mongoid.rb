@@ -1,7 +1,7 @@
 class BaseMongoid  		
 
     def self.set_collection_index(index)
-      @collection_index = index % 1000
+      @collection_index = index.to_i % 1000
     end
 
   	def self.super_get(condition, filter = [])
@@ -32,14 +32,27 @@ class BaseMongoid
   	end
 
   	def self.super_pop(condition, array_name, pop_option = 1)
-  		where(condition).pop(array_name => pop_option)
+      record = nil
+      retval =0;
+      if pop_option == 1
+        record = super_slice(condition, array_name, 0)
+      else
+        record = super_slice(condition, array_name, -1)
+      end
+      retval = record[array_name.to_sym][0]
+      where(condition).pop(array_name => pop_option)
+      retval
   	end
 
     def self.super_slice(condition, array_name, offset, limit = 1)
       where(condition).slice(array_name => [offset, limit]).first
     end
 
+    def self.super_delete(condition)
+      where(condition).delete
+    end
+
     def self.sanitize_params(params, valid_params)
       params.symbolize_keys.delete_if {|key, value| !(valid_params.include?(key) || key.to_s.include?('.')) }
-  end
+    end
 end

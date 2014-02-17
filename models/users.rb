@@ -19,7 +19,7 @@ class Users < BaseMongoid
 	# alias :supper_get  :get
 
 	def self.generate_collection
-  		"user_data_#{@collection_index % 1000}"
+  		"user_data_#{@collection_index}"
   	end
 
 	def self.get(user_id, filter = [])
@@ -46,5 +46,10 @@ class Users < BaseMongoid
 	def self.pop(user_id, array_name, pop_option = 1)
 		set_collection_index(user_id)
 		self.super_pop({user_id: user_id}, array_name, pop_option)
+	end
+
+	def self.delete(user_id)
+		set_collection_index(user_id)
+		self.super_delete({user_id: user_id})
 	end
 end

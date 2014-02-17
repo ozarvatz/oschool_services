@@ -14,6 +14,10 @@ development:
         - localhost:27017
 test:
   sessions:
+    default:
+      database: arliku_test
+      hosts:
+        - localhost:27017
     cluster_tags:
       database: arliku_test
       hosts:
@@ -24,6 +28,10 @@ test:
         - localhost:27017
 production:
   sessions:
+    default:
+      database: arliku_production
+      hosts:
+        - localhost:27017
     cluster_tags:
       database: arliku_production
       hosts:

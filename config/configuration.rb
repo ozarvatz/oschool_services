@@ -4,7 +4,7 @@ module Configuration
   attr_accessor :env
 
   def init
-    @env = ENV["RACK_ENV"] || "development"
+    @env = ENV["SINATRA_ENV"] || "development"
     Mongoid.load!("config/mongoid.yml", env)
 
     setup_logger(env)
